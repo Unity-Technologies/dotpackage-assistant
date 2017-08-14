@@ -662,14 +662,14 @@ public class DotPackageManagerWindow : EditorWindow
 			int readBufferSize = 1024 * 1024 * 10;
 			int tarBlockSize = 512;
 			byte[] readBuffer = new byte[readBufferSize];
-			Regex hashPattern = new Regex(@"\/*([a-f\d]{20})\/");
+			Regex hashPattern = new Regex(@"^([a-f\d]{20,})\/");
 
 			while (true)
 			{
 				byte[] headerBuffer = reader.ReadBytes(tarBlockSize);                   //We want the header, but the header is padded to a blocksize
-				if (compressedFileStream.Position == compressedFileStream.Length)
+				if (headerBuffer.All(x => x == 0))
 				{
-					//Reached EOF
+					//Reached end of stream
 					break;
 				}
 				GCHandle handle = GCHandle.Alloc(headerBuffer, GCHandleType.Pinned);
