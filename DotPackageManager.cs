@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -762,7 +762,7 @@ public class DotPackageManagerWindow : EditorWindow
 						{
 							if (toRead > readThisTime)
 								throw new Exception("Assumed a pathname would fit in a single read!");
-							string pathnameFileContents = Encoding.ASCII.GetString(readBuffer, 0, filesizeInt);
+							string pathnameFileContents = Encoding.UTF8.GetString(readBuffer, 0, filesizeInt);
 							PackageEntry entry = packageContents[hash];
 							entry.pathname = FormatPath(pathnameFileContents.Split(new char[] { '\n' })[0]);
 							packageContents[hash] = entry;
