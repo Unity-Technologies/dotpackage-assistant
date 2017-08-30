@@ -148,7 +148,7 @@ public class PackageManifest
 	}
 };
 
-public class DotPackageManagerWindow : EditorWindow
+public class DotPackageAssistantWindow : EditorWindow
 {
 	//Debugging
 	string packageManifestPath = "PackageManifests";
@@ -173,11 +173,11 @@ public class DotPackageManagerWindow : EditorWindow
 		}
 	}
 
-	[MenuItem("Window/DotPackage Manager")]
+	[MenuItem("Window/DotPackage Assistant")]
 	public static void ShowWindow()
 	{
 		//Show existing window instance. If one doesn't exist, make one.
-		EditorWindow.GetWindow(typeof(DotPackageManagerWindow));
+		EditorWindow.GetWindow(typeof(DotPackageAssistantWindow));
 	}
 
 	void OnGUI()
@@ -430,7 +430,7 @@ public class DotPackageManagerWindow : EditorWindow
 	{
 		//Annoyingly, package installation can cause a domain reload if the package contains scripts. So for now, serialise the manifest
 		//out to a temporary file and tell the user they may need to finalise the process by hand
-		EditorUtility.DisplayDialog("About to Install", "After Installation is complete you may need to reopen this package manager and press the \"Install Manifest\" button to finalise installation", "Understood", string.Empty);
+		EditorUtility.DisplayDialog("About to Install", "After Installation is complete you may need to reopen this package assistant and press the \"Install Manifest\" button to finalise installation", "Understood", string.Empty);
 		File.WriteAllText(packageTempManifest, JsonUtility.ToJson(manifestToInstall));
 		List<PackageManifestEntry> currentStateEntries = new List<PackageManifestEntry>();
 		GatherProjectDirState("assets", ref currentStateEntries);
